@@ -1,5 +1,4 @@
 #import packages that enable web scraping
-
 from bs4 import BeautifulSoup
 import requests
 
@@ -39,10 +38,16 @@ df
 #back to scraped table, find all rows
 col_data = table.find_all('tr')
 
-#
+#use for loop to append all the individual rows to the dataframe. [1:] is used 
 for row in col_data[1:]:
     row_data = row.find_all('td')
     world_table_data = [data.text.strip() for data in row_data]
     
     length = len(df)
     df.loc[length] = world_table_data
+
+#view complete table in pandas dataframe
+df
+
+#to export the dataframe as a CSV file and save on local PC in a folder called Folder_for_Scraping
+df.to_csv(r'C:\Users\...\...\Folder_for_Scraping\Companies.csv', index= False)
